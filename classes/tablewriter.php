@@ -2,45 +2,36 @@
 //Handle the writing of tables from a two-dimensional array (usually database results)
 class TableWriter
 {
-    private $classes = array("table-striped");
-    
-    public function __construct($classes = null)
-    {
-        if(isset($classes)){
-            $this->classes = $classes;
-        }
-    }
-    
-    public function write(array $array)
+    public function write(Table $table)
     {
         //header creation
-        $table = '<table class="table '.implode(' ', $this->classes).'"><thead><tr>';
+        $output = '<table class="table '.implode(' ', $table->getClasses()).'"><thead><tr>';
         
-        foreach(array_keys($array[0]) as $key) {
-            $table .= '<th>'.ucwords($key).'</th>';
+        foreach($table->getKeys() as $key) {
+            $output .= '<th>'.ucwords($key).'</th>';
         }
         
-        $table .= "</tr></thead>";
+        $output .= "</tr></thead>";
         //end header creation
         
         //body creation
-        $table .= "<tbody>";
+        $output .= "<tbody>";
         
         //row creation
-        foreach($array as $row) {
-            $table .= '<tr>';
+        foreach($table->getRows() as $row) {
+            $output .= '<tr>';
             foreach($row as $key => $value) {
-                $table .= "<td>$value</td>";
+                $output .= "<td>$value</td>";
             }
-            $table .= '</tr>';
+            $output .= '</tr>';
         }
         //end row creation
         
-        $table .= '</tbody></table>';
+        $output .= '</tbody></table>';
         //end body creation
         
         //write table
-        echo $table;
+        echo $output;
     }
 }
 ?>

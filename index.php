@@ -1,7 +1,13 @@
 <?php
-  include("classes/tablewriter.php");
+include("classes/table.php");
+include("classes/tablewriter.php");
   
-  $testArray = array(array("red" => 1, "blue" => 2), array("red" => 2, "blue" => 1));
+$testArray = array(array("red" => 1, "blue" => 2), array("red" => 2, "blue" => 1));
+$table1 = new Table($testArray);
+$table2 = new Table($testArray);
+$table2->addClass("table-hover");
+$table2->removeClass("table-striped");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,7 +19,8 @@
     <div class="container">
     <?php
       $tableWriter = new TableWriter();
-      $tableWriter->write($testArray);  
+      $tableWriter->write($table1);
+      $tableWriter->write($table2);
     ?>
     </div>
 </body>
