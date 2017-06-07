@@ -7,8 +7,8 @@ class TableWriter
         //header creation
         $output = '<table class="table '.implode(' ', $table->getClasses()).'"><thead><tr>';
         
-        foreach($table->getKeys() as $key) {
-            $output .= '<th>'.ucwords($key).'</th>';
+        foreach($table->getHeaders() as $header) {
+            $output .= '<th>'.ucwords($header).'</th>';
         }
         
         $output .= "</tr></thead>";
@@ -19,7 +19,8 @@ class TableWriter
         
         //row creation
         foreach($table->getRows() as $row) {
-            $output .= '<tr>';
+            $tableRow = new TableRow($row);
+            $output .= '<tr class="">';
             foreach($row as $key => $value) {
                 $output .= "<td>$value</td>";
             }
