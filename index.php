@@ -6,10 +6,8 @@ include("classes/tablerow.php");
 $testArray = array(array("red" => 1, "blue" => 2), array("red" => 2, "blue" => 1));
 $table1 = new Table($testArray);
 $table1->setHeaders(array('Replace', 'Headers'));
-$table1->setRowCondition(function(array $array, $key){ return ($array[$key] > 1); });
-$table2 = new Table($testArray);
-$table2->addClass("table-hover");
-$table2->removeClass("table-striped");
+$table1->addRowCondition(function(TableRow $tableRow){ if ($tableRow->getValue('blue') > 1) $tableRow->addClass('success'); });
+$table1->addRowCondition(function(TableRow $tableRow){ if ($tableRow->getValue('red') > 1) $tableRow->addClass('danger'); });
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +21,6 @@ $table2->removeClass("table-striped");
     <?php
       $tableWriter = new TableWriter();
       $tableWriter->write($table1);
-      $tableWriter->write($table2);
     ?>
     </div>
 </body>

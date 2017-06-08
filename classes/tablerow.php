@@ -19,6 +19,11 @@ class TableRow
         $this->data = $data;
     }
     
+    public function getValue($key)
+    {
+        return $this->data[$key];
+    }
+    
     public function addClass($class)
     {
         $this->classes[] = $class;

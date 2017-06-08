@@ -4,7 +4,7 @@ class Table
     private $headers;
     private $rows;
     private $classes = array("table-striped"); //default classes for consistency
-    public $rowCondition;
+    public $rowConditions = array();
     
     public function __construct(array $rows, array $classes = null)
     {
@@ -58,9 +58,9 @@ class Table
         $this->headers = $headers;
     }
     
-    public function setRowCondition($function)
+    public function addRowCondition($function)
     {
-        $this->rowCondition = $function;
+        $this->rowConditions[] = $function;
     }
     
 }

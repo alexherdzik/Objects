@@ -20,7 +20,13 @@ class TableWriter
         //row creation
         foreach($table->getRows() as $row) {
             $tableRow = new TableRow($row);
-            $output .= '<tr class="">';
+            //check any set row conditions
+            if (isset($table->rowConditions)) {
+                foreach($table->rowConditions as $condition){
+                    $condition($tableRow);
+                }
+            }
+            $output .= '<tr class="'.implode(' ', $tableRow->getClasses()).'">';
             foreach($row as $key => $value) {
                 $output .= "<td>$value</td>";
             }
