@@ -21,7 +21,10 @@ class TableRow
     
     public function getValue($key)
     {
-        return $this->data[$key];
+        if (array_key_exists($key, $this->data)) {
+            return $this->data[$key];   
+        }
+        return false;
     }
     
     public function addClass($class)

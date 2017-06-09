@@ -1,13 +1,32 @@
 <?php
+include("classes/database.php");
 include("classes/table.php");
 include("classes/tablewriter.php");
 include("classes/tablerow.php");
-  
-$testArray = array(array("red" => 1, "blue" => 2), array("red" => 2, "blue" => 1));
+
+
+$database = new Database("root", "root", "directory");
+$testArray = $database->select("SELECT name, role FROM heroes JOIN roles ON heroes.id = roles.id ORDER BY name");
+
 $table1 = new Table($testArray);
-$table1->setHeaders(array('Replace', 'Headers'));
-$table1->addRowCondition(function(TableRow $tableRow){ if ($tableRow->getValue('blue') > 1) $tableRow->addClass('success'); });
-$table1->addRowCondition(function(TableRow $tableRow){ if ($tableRow->getValue('red') > 1) $tableRow->addClass('danger'); });
+//$table1->setHeaders(array('Replace', 'Headers'));
+$table1->addRowCondition(
+    function(TableRow $tableRow)
+    { switch ($tableRow->getValue('role')) {
+        case 'offense':
+            $tableRow->addClass('danger');
+            break;
+        case 'defense':
+            $tableRow->addClass('warning');
+            break;
+        case 'tank':
+            $tableRow->addClass('success');
+            break;
+        case 'support':
+            $tableRow->addClass('info');
+            break;
+    }
+});
 
 ?>
 <!DOCTYPE html>
